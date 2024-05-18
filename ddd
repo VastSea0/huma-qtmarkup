@@ -1,0 +1,161 @@
+#atamalar
+import random
+import json
+import ast
+
+#fonksiyonlar
+def parse_html(html_file, tag):
+    if tag == "h1":
+        h1_tags = []
+
+        # HTML dosyasını aç
+        with open(html_file, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+
+        # Her satırı kontrol et
+        for line in lines:
+            # Satırda <h1> etiketi var mı kontrol et
+            if "<h1>" in line:
+                # Satır içerisinde <h1> etiketi varsa, içeriğini al ve listeye ekle
+                start_index = line.find("<h1>") + len("<h1>")
+                end_index = line.find("</h1>")
+                h1_content = line[start_index:end_index]
+                h1_tags.append(h1_content)
+
+        return h1_tags
+    elif tag == "h2":
+        h2_tags = []
+
+        # HTML dosyasını aç
+        with open(html_file, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+
+        # Her satırı kontrol et
+        for line in lines:
+            # Satırda <h2> etiketi var mı kontrol et
+            if "<h2>" in line:
+                # Satır içerisinde <h2> etiketi varsa, içeriğini al ve listeye ekle
+                start_index = line.find("<h2>") + len("<h2>")
+                end_index = line.find("</h2>")
+                h2_content = line[start_index:end_index]
+                h2_tags.append(h2_content)
+
+        return h2_tags
+
+
+def parse_tags(count):
+    if count == "hepsi":
+        h1_tags = parse_html(html_file, "h1")
+        h2_tags = parse_html(html_file, "h2")
+        return h1_tags
+        return h2_tags
+
+
+    elif count == "head":
+        h2_tags = parse_html(html_file, "h2")
+        h1_tags = parse_html(html_file, "h1")
+        return h1_tags
+        return h2_tags
+
+    else:
+        print("Geçersiz")
+
+
+def show_tags(tag):
+    if tag == "hepsi":
+        # h1 tagleri
+        h1_tags = parse_html(html_file, "h1")
+        print("h1 Etiketleri:")
+        for h1 in h1_tags:
+            print(h1)
+
+        # h2 tagleri
+        h2_tags = parse_html(html_file, "h2")
+        print("h2 Etiketleri:")
+        for h2 in h2_tags:
+            print(h2)
+    elif tag == "head":
+        # h1 tagleri
+        h1_tags = parse_html(html_file, "h1")
+        print("h1 Etiketleri:")
+        for h1 in h1_tags:
+            print(h1)
+
+        # h2 tagleri
+        h2_tags = parse_html(html_file, "h2")
+        print("h2 Etiketleri:")
+        for h2 in h2_tags:
+            print(h2)
+    else:
+        print("geçersiz")
+
+def temzile(temizlencekgirdi):
+    liste_girdi = ast.literal_eval(temizlencekgirdi)
+    # Çıktı oluşturma
+    cikti = {}
+    for item in liste_girdi:
+        key, value = item.split(': ')
+        key = key.strip('"')
+        value = ast.literal_eval(value)
+        cikti[key] = value
+
+    
+    # Sözlüğü JSON formatına dönüştürme
+    cikti_json = json.dumps(cikti, indent=4)
+
+    # JSON formatındaki çıktıyı dosyaya yazma
+    asil_sayi = random.randint(0, 5000)
+    asil_ad = f"temp.yeniui{asil_sayi}.json"
+    with open(f"{asil_ad}-output.json", "w") as file:
+        file.write(cikti_json)
+
+def pythonayaz(veri):
+    veri_dict = json.loads(veri)
+
+    # UI dosyasını oluşturma ve içeriğini doldurma
+    with open("ui.py", "a") as dosya:
+        for key, values in veri_dict.items():
+            for value in values:
+                dosya.write(f'text = tk.Label(root, text="{value}", font=("Arial", 24), fg="black")\n')
+                dosya.write('text.pack()\n')
+
+
+def arayuzubitir(dosya):
+    with open(dosya, "a") as file:
+        file.write("\n root.mainloop()")
+
+def arayuzubaslat(dosya):
+    girismetni = """
+import tkinter as tk
+# Ana pencereyi oluştur
+root = tk.Tk()
+root.geometry("400x300")
+root.title("Hüma")
+"""
+    with open(dosya, "w") as file:
+        file.write(girismetni)
+
+
+def create_ui():
+    h1_tags = parse_html(html_file, "h1")
+    h2_tags = parse_html(html_file, "h2")
+    
+    # Create a dictionary with keys "h1 tagleri" and "h2 tagleri"
+    tag_dict = {"h1 tagleri": h1_tags, "h2 tagleri": h2_tags}
+    
+    # Convert the dictionary to JSON
+    tag_json = json.dumps(tag_dict)
+
+    # Call other functions with the JSON data
+    arayuzubaslat("ui.py")
+    pythonayaz(tag_json)
+    arayuzubitir("ui.py")
+
+        
+
+# Kullanıcıdan dosya adını al
+html_file = "index.html" #input("Dosya adını girin: ")
+
+# Fonksiyonu çağır ve  etiketleri  yazdır
+#show_tags("hepsi")
+create_ui()
