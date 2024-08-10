@@ -66,8 +66,14 @@ HHE, basit bir HTML benzeri sözdizimi kullanarak hızlı ve kolay bir şekilde 
 
 Bu deneysel bir projedir ve geliştirmeye açıktır. Öneriler, hata raporları ve pull request'ler her zaman hoş karşılanır.
 
-## Lisans
+## Ekran Görüntüleri
 
+![image](https://github.com/user-attachments/assets/6b185706-dcc8-4819-9074-2bd1f2af6f5a)
+
+## Kaynaklar,
+[PyQt5](https://www.pythonguis.com/pyqt5-tutorial/)
+
+## Lisans
 [MIT Lisansı](LICENSE)
 
 ## İletişim
