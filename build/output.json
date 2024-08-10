@@ -1,0 +1,31 @@
+[
+  {
+    "type": "window",
+    "content": "500x500",
+    "attribute": "size"
+  },
+  {
+    "type": "window",
+    "content": "Pencere ad\u0131",
+    "attribute": "title"
+  },
+  {
+    "type": "window",
+    "content": "style.css",
+    "attribute": "style"
+  },
+  {
+    "type": "t",
+    "content": "Welcome To World Wide Web",
+    "param1": 12,
+    "param2": "red"
+  },
+  {
+    "type": "webengine",
+    "content": "H\u00fcma On PyQtWebEngine",
+    "param1": "500x500",
+    "param2": "https",
+    "param3": "//uzaylinin-notlari.netlify.app/",
+    "param4": "show"
+  }
+]
